@@ -1,8 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import './Dashboard.css';
 
 export default function Dashboard({ user }) {
+  const navigate = useNavigate();
+  
   // Generate random floating balls (consistent with login page)
   const FloatingBalls = () => {
     const balls = [];
@@ -39,7 +42,6 @@ export default function Dashboard({ user }) {
     {
       id: 'finance',
       title: 'Finance',
-      description: 'Track your expenses, income, and financial goals. Manage your budget effectively.',
       icon: (
         <svg className="tile-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
@@ -50,7 +52,6 @@ export default function Dashboard({ user }) {
     {
       id: 'todo',
       title: 'To-Do List',
-      description: 'Organize your tasks, set priorities, and track your daily productivity.',
       icon: (
         <svg className="tile-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
@@ -61,7 +62,6 @@ export default function Dashboard({ user }) {
     {
       id: 'goals',
       title: 'Goals',
-      description: 'Set long-term objectives, track progress, and achieve your dreams.',
       icon: (
         <svg className="tile-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
@@ -73,7 +73,14 @@ export default function Dashboard({ user }) {
 
   const handleTileClick = (tileId) => {
     console.log(`Clicked on ${tileId} tile`);
-    // Add navigation logic here
+    // Navigate to different pages based on tile
+    if (tileId === 'todo') {
+      navigate('/todo');
+    } else if (tileId === 'finance') {
+      console.log('Finance feature coming soon!');
+    } else if (tileId === 'goals') {
+      console.log('Goals feature coming soon!');
+    }
   };
 
   const handleLogout = () => {
@@ -131,11 +138,7 @@ export default function Dashboard({ user }) {
               {tile.icon}
               <div>
                 <h3 className="tile-title">{tile.title}</h3>
-                <p className="tile-description">{tile.description}</p>
               </div>
-              <button className="tile-action">
-                Open {tile.title}
-              </button>
             </motion.div>
           ))}
         </motion.div>
